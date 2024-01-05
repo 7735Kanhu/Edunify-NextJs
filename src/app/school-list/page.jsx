@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 const FindSchool = () => {
   const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,6 +13,7 @@ const FindSchool = () => {
         const response = await fetch('http://localhost:3000/api/schools/getStudent'); // Fetch data from the API route
         if (response.ok) {
           const result = await response.json();
+          console.log("result",result.data);
           setData(result.data); // Set the fetched data to the state
         } else {
           throw new Error('Failed to fetch data');
@@ -36,20 +37,8 @@ console.log(searchTerm);
       </div>
       <div className='max-w-[1280px] mx-auto flex flex-wrap gap-4 w-full my-14 justify-center'>
         {
-          data.filter((val) => {
-            if (searchTerm === "") {
-              return val;
-            } else {
-              const lowerCaseSearch = searchTerm.toLowerCase();
-              if (
-                val.name.toLowerCase().includes(lowerCaseSearch) ||
-                val.city.toLowerCase().includes(lowerCaseSearch)
-              ) {
-                return val;
-              }
-            }
-            return null;
-          }).map((item)=>{
+          
+          data.map((item)=>{
             return <div key={item.id} className='p-2 shadow-xl rounded-xl hover:scale-95 transition-all items-center'>
               <a href="#" className='flex flex-col gap-4'>
                 <img src={item.image} alt="school" className='h-64 w-[280px]'/>

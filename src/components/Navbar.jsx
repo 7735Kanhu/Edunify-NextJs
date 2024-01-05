@@ -1,10 +1,17 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import Image from 'next/image';
 import { FiPhoneCall ,FiMail } from "react-icons/fi";
 import { FaFacebookF, FaTwitter, FaLinkedinIn   } from "react-icons/fa";
+import { RiMenu3Fill } from "react-icons/ri";
 import Link from 'next/link';
 
 const Navbar = () => {
+  const [show,setShow] =useState(false)
+
+  const showMenu= ()=>{
+    setShow(!show)
+  }
   return (
     <div>
       <div className='w-full bg-slate-200'>
@@ -20,17 +27,25 @@ const Navbar = () => {
         </div>
       </div>
     </div>
-    <div className='w-full max-w-[1280px] mx-auto flex justify-between py-4 items-center'>
+    <div className='w-full max-w-[1280px] mx-auto flex justify-between py-4 px-3 items-center'>
         <div className='mx-2 md:mx-0'>
           <img src="/assets/schoollogo.png" alt="logo" />
         </div>
         <div>
-          <ul className='md:flex gap-6 font-bold grid grid-cols-1 absolute right-0 mt-10 bg-white p-2 rounded-md md:relative'>
+          <ul className='md:flex gap-6 font-bold mt-10 bg-white p-2 hidden'>
             <Link href="/" className='active:text-orange-500 hover:text-orange-500'>HOME</Link>
             <Link href="/school-list" className='active:text-orange-500 hover:text-orange-500'>SEARCH SCHOOL</Link>
             <Link href="/create-school" className='active:text-orange-500 hover:text-orange-500'>REGISTER SCHOOL</Link>
           </ul>
+          {
+            show ? (<ul className=' gap-6 font-bold grid grid-cols-1 absolute right-0 mt-10 bg-white p-2 rounded-md md:hidden z-10'>
+            <Link href="/" className='active:text-orange-500 hover:text-orange-500'>HOME</Link>
+            <Link href="/school-list" className='active:text-orange-500 hover:text-orange-500'>SEARCH SCHOOL</Link>
+            <Link href="/create-school" className='active:text-orange-500 hover:text-orange-500'>REGISTER SCHOOL</Link>
+          </ul>) : null
+          }
         </div>
+        <RiMenu3Fill className='text-3xl md:hidden' onClick={showMenu}/>
     </div>
     </div>
   )
