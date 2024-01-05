@@ -1,33 +1,56 @@
 'use client'
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/router';
-import {useFormStatus, useFormState} from "react-dom"
-import mysqlserveraction from '@/app/mysqlserveraction';
-
-const initialState ={
-  message:null,
-}
 
 const RegisterForm = () => {
-    const {register,handleSubmit, formState} = useForm();
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [image, setImage] = useState('');
+    const {register, formState} = useForm();
     
-    const {pending} = useFormStatus()
-    // const router = useRouter();
+    // const {pending} = useFormStatus()
     const {errors} = formState;
-    const [state, formAction] =useFormState(mysqlserveraction,initialState)
-
+    // const [state, formAction] =useFormState(mysqlserveraction,initialState)
+    // action={formAction}
+    // method='post' encType="multipart/form-data"
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await fetch('http://localhost:3000/api/schools/addStudent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, number, state, city, address, image }),
+        });
+  
+        if (response.ok) {
+          // Show success message or redirect
+          console.log('Student added successfully');
+        } else {
+          // Handle error case
+          console.error('Failed to add student');
+        }
+      } catch (error) {
+        console.error('Error adding student:', error);
+      }
+    };
 
   return (
     <div>
-      {state?.message?<p>{state.message}</p>: null}
-        <form className="w-80 flex flex-col gap-2" action={formAction} method='post'>
+      {/* {state?.message?<p>{state.message}</p>: null} */}
+        <form className="sm:w-80 flex flex-col gap-2 items-center text-center justify-center align-middle w-full md:justify-start md:text-start" onSubmit={handleSubmit} >
               <div className="flex flex-col text-xl">
                 <label htmlFor="name">School Name</label>
                 <input
                   type="text"
                   id="name"
-                  name='name'
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
                   placeholder="Enter your School name"
                     className="py-1 px-3 border rounded-md"
                     {...register("name",{ required:{
@@ -42,7 +65,8 @@ const RegisterForm = () => {
                   <input
                     type="number"
                     id="number"
-                    name='number'
+                    // value={number}
+                    onChange={(e) => setNumber(e.target.value)}
                     placeholder="Enter contact number"
                     className="py-1 px-3 border rounded-md"
                     {...register("number",{required:{
@@ -57,7 +81,8 @@ const RegisterForm = () => {
                   <input
                     type="text"
                     id="state"
-                    name='state'
+                    // value={state}
+                  onChange={(e) => setState(e.target.value)}
                     placeholder="Enter your School name"
                     className="py-1 px-3 border rounded-md"
                     {...register("state",{required:{
@@ -72,7 +97,8 @@ const RegisterForm = () => {
                   <input
                     type="text"
                     id="city"
-                    name='city'
+                    // value={city}
+                    onChange={(e) => setCity(e.target.value)}
                     placeholder="Enter your School name"
                     className="py-1 px-3 border rounded-md"
                     {...register("city",{required:{
@@ -86,9 +112,10 @@ const RegisterForm = () => {
                 <label htmlFor="address">Address</label>
                 <textarea
                   id="address"
-                  cols="30"
+                  cols="25"
                   rows="5"
-                  name='address'
+                  // value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   placeholder="Enter your full address..."
                   className="py-1 px-3 border rounded-md"
                   {...register("address",{required:{
@@ -100,13 +127,15 @@ const RegisterForm = () => {
               </div>
               <div className="flex flex-col text-xl">
                 <label htmlFor="image">School Image</label>
-                <input type="text" id="image" name='image' {...register("image",{required:{
+                <input type="text" id="image" 
+                // value={image}
+                  onChange={(e) => setImage(e.target.value)} {...register("image",{required:{
                         value: true,
                         message: "Upload a School Photo"
                     }})}/>
                     {errors.image && <p className='text-sm text-red-500'>{errors.image.message}</p>}
               </div>
-              <button type="submit" value="insert" name='submit' className="bg-orange-600 w-max mt-10 py-2 px-5 text-xl font-semibold rounded-md">{pending ? "Registering..." : "Register"}</button>
+              <button type="submit" className="bg-orange-600 w-max mt-10 py-2 mb-3 px-5 text-xl font-semibold rounded-md">Register</button>
             </form>
     </div>
   )
