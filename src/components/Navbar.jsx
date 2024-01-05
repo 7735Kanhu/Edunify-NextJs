@@ -25,7 +25,7 @@ const Navbar = () => {
           <img src="/assets/schoollogo.png" alt="logo" />
         </div>
         <div>
-          <ul className='md:flex gap-6 font-bold grid grid-cols-1 absolute right-0 mt-10 bg-white p-2 rounded-md'>
+          <ul className='md:flex gap-6 font-bold grid grid-cols-1 absolute right-0 mt-10 bg-white p-2 rounded-md md:relative'>
             <Link href="/" className='active:text-orange-500 hover:text-orange-500'>HOME</Link>
             <Link href="/school-list" className='active:text-orange-500 hover:text-orange-500'>SEARCH SCHOOL</Link>
             <Link href="/create-school" className='active:text-orange-500 hover:text-orange-500'>REGISTER SCHOOL</Link>

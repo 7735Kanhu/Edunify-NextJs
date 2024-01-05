@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 const FindSchool = () => {
   const [data, setData] = useState([]);
-  // const result =await executeQuery("select * from schools", [])
-  // const data = JSON.stringify(result);
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,18 +25,31 @@ const FindSchool = () => {
     fetchData();
   }, []);
 
-
+console.log(searchTerm);
   return (
     <div className='w-full'>
       <div className='w-full bg-[url("/assets/school2.jpg")] bg-no-repeat bg-cover'>
         <div className=' p-8 py-28 mx-auto text-center h-[70vh]'>
         <h1 className='text-4xl font-bold text-white'>Search Your <span className='text-orange-600'>Dream</span> School Here</h1>
-        <input type="text" placeholder='search school...' className='py-3 px-4 text-lg mt-5 rounded-full shadow-xl outline-none bg-orange-400'/>
+        <input type="text" placeholder='search school...' className='py-3 px-4 text-lg mt-5 rounded-full shadow-xl outline-none bg-orange-400' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
         </div>
       </div>
       <div className='max-w-[1280px] mx-auto flex flex-wrap gap-4 w-full my-14 justify-center'>
         {
-          data.map((item)=>{
+          data.filter((val) => {
+            if (searchTerm === "") {
+              return val;
+            } else {
+              const lowerCaseSearch = searchTerm.toLowerCase();
+              if (
+                val.name.toLowerCase().includes(lowerCaseSearch) ||
+                val.city.toLowerCase().includes(lowerCaseSearch)
+              ) {
+                return val;
+              }
+            }
+            return null;
+          }).map((item)=>{
             return <div key={item.id} className='p-2 shadow-xl rounded-xl hover:scale-95 transition-all items-center'>
               <a href="#" className='flex flex-col gap-4'>
                 <img src={item.image} alt="school" className='h-64 w-[280px]'/>
@@ -51,12 +63,6 @@ const FindSchool = () => {
           })
         }
       </div>
-      {/* {data.map((item)=>{
-       return <h1 key={item.id}>{item.name}
-       <span>{item.city}</span>
-       </h1>
-      })} */}
-      
     </div>
   )
 }

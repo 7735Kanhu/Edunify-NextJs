@@ -19,6 +19,7 @@ const RegisterForm = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(image);
+      console.log(name);
       // const formData = new FormData();
       // formData.set("name",name)
       // formData.set("number",number)
@@ -30,9 +31,9 @@ const RegisterForm = () => {
       try {
         const response = await fetch('http://localhost:3000/api/schools/addStudent', {
           method: 'POST',
-          // headers: {
-          //   'Content-Type': 'application/json',
-          // },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({ name, number, state, city, address, image }),
           // body: formData,
         });
@@ -40,6 +41,12 @@ const RegisterForm = () => {
         if (response.ok) {
           // Show success message or redirect
           console.log('Student added successfully');
+          setName('')
+          setNumber('')
+          setState('')
+          setCity('')
+          setAddress('')
+          setImage('')
         } else {
           // Handle error case
           console.error('Failed to add student');
@@ -52,9 +59,9 @@ const RegisterForm = () => {
   return (
     <div>
       {/* {state?.message?<p>{state.message}</p>: null} */}
-        <form className="sm:w-80 flex flex-col gap-2 items-center md:items-start text-center justify-center align-middle w-full md:justify-start md:text-start text-md" onSubmit={handleSubmit} >
+        <form className="sm:w-80 flex flex-col gap-2 items-center md:items-start text-center justify-center align-middle w-full md:justify-start md:text-start text-md" onSubmit={handleSubmit} enctype="multipart/form-data">
               <div className="flex flex-col">
-                <label htmlFor="name" >School Name</label>
+                <label  >School Name</label>
                 <input
                   type="text"
                   id="name"
