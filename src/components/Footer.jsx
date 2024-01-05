@@ -7,7 +7,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn   } from "react-icons/fa";
 const Footer = () => {
   return (
     <div className="w-full bg-black text-white">
-      <div className="max-w-[1280px] mx-auto py-4 flex justify-between">
+      <div className="max-w-[1280px] mx-auto py-4 flex justify-between flex-wrap px-3 justify-center">
         <div className="flex gap-4 flex-col">
           <img src="/assets/schoollogo.png" alt="logo" className="w-max"/>
           <p className="w-72">

@@ -14,7 +14,7 @@ const CreateSchool = () => {
             className="flex basis-2/4 h-2/4 md:w-14 w-56"
           />
           <div className="flex flex-col basis-2/4 px-4 gap-4">
-            <h1 className="text-orange-600 font-extrabold text-3xl">
+            <h1 className="text-orange-600 font-extrabold md:text-3xl text-xl">
               Register Your School Here
             </h1>
             <RegisterForm />
