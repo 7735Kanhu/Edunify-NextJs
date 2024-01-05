@@ -16,9 +16,6 @@ const RegisterForm = () => {
     const {register, formState} = useForm();
     
     const {errors} = formState;
-    // useEffect(()=>{
-    //   handleSubmit()
-    // },[loading])
  
     const handleSubmit = async (e) => {
       e.preventDefault();

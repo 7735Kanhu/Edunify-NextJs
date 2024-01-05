@@ -1,7 +1,5 @@
 'use client'
-// import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-// import executeQuery from '../api/schools/route'
 
 const FindSchool = () => {
   const [data, setData] = useState([]);
@@ -26,7 +24,6 @@ const FindSchool = () => {
     fetchData();
   }, []);
 
-console.log(searchTerm);
   return (
     <div className='w-full'>
       <div className='w-full bg-[url("/assets/school2.jpg")] bg-no-repeat bg-cover'>
